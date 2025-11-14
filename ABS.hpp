@@ -112,7 +112,7 @@ public:
     }
 
     T peek() const override {
-        return curr_size_ > 0 ? array_[front_]: throw std::runtime_error("Out of range");
+        return curr_size_ > 0 ? array_[back_]: throw std::runtime_error("Out of range");
 
     }
 
@@ -121,7 +121,7 @@ public:
         if (curr_size_ > 0) {
             T res = array_[back_];
             curr_size_ --;
-            back_ = back_ > 0? back_-1 : capacity_;
+            back_ = back_ > 0? back_-1 : capacity_-1;
 
             ShrinkIfNeeded();
             return res;
