@@ -32,7 +32,7 @@ public:
             list.removeHead();
             return res->data;
         }
-        throw std::out_of_range("Out of range");
+        throw std::runtime_error("Out of range");
     }
     T popBack() override {
         if (list.getCount() > 0) {
@@ -40,12 +40,12 @@ public:
             list.removeTail();
             return res->data;
         }
-        throw std::out_of_range("Out of range");
+        throw std::runtime_error("Out of range");
     }
 
     // Element Accessors
-    const T& front() const override {return list.getCount()> 0 ? list.getHead()->data: throw std::out_of_range("Out of range");}
-    const T& back() const override {return list.getCount()> 0 ? list.getTail()->data : throw std::out_of_range("Out of range");}
+    const T& front() const override {return list.getCount()> 0 ? list.getHead()->data: throw std::runtime_error("Out of range");}
+    const T& back() const override {return list.getCount()> 0 ? list.getTail()->data : throw std::runtime_error("Out of range");}
 
     // Getter
     std::size_t getSize() const noexcept override {return static_cast<std::size_t>(list.getCount());}

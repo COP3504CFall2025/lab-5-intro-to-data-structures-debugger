@@ -110,7 +110,7 @@ public:
     }
 
     T peek() const override {
-        return curr_size_ > 0 ? array_[back_]: throw std::out_of_range("Out of range");
+        return curr_size_ > 0 ? array_[back_]: throw std::runtime_error("Out of range");
 
     }
 
@@ -123,7 +123,7 @@ public:
             ShrinkIfNeeded();
             return res;
         }
-        throw std::out_of_range("Out of range.");
+        throw std::runtime_error("Out of range.");
 
     };
 

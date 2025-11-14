@@ -110,7 +110,7 @@ public:
 
     // Access
     T peek() const override {
-        return curr_size_ > 0 ? array_[front_]: throw std::out_of_range("Out of range");
+        return curr_size_ > 0 ? array_[front_]: throw std::runtime_error("Out of range");
     }
 
     // Deletion
@@ -123,7 +123,7 @@ public:
             ShrinkIfNeeded();
             return res;
         }
-        throw std::out_of_range("Out of range.");
+        throw std::runtime_error("Out of range.");
     }
     void ShrinkIfNeeded() {
         if (curr_size_ < capacity_/2) {

@@ -159,7 +159,7 @@ public:
             ShrinkIfNeeded();
             return res;
         }
-        throw std::out_of_range("Out of range.");
+        throw std::runtime_error("Out of range.");
 
 
     }
@@ -173,20 +173,20 @@ public:
             return res;
         }
 
-        throw std::out_of_range("Out of range.");
+        throw std::runtime_error("Out of range.");
 
     }
 
     // Access
     const T& front() const override {
         if ( front_ > size_) {
-            throw std::out_of_range("Out of range.");
+            throw std::runtime_error("Out of range.");
         }
         return data_[front_];
     }
     const T& back() const override {
         if ( back_ > size_) {
-            throw std::out_of_range("Out of range.");
+            throw std::runtime_error("Out of range.");
         }
         return data_[back_];
     }

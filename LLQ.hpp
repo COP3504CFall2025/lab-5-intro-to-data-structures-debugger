@@ -25,11 +25,11 @@ public:
         list.removeHead();
         return res->data;
         }
-        throw std::out_of_range("Out of range");
+        throw std::runtime_error("Out of range");
     }
 
     // Access
-    T peek() const override{return list.getCount() > 0 ? list.getHead()->data : throw std::out_of_range("Out of Range");}
+    T peek() const override{return list.getCount() > 0 ? list.getHead()->data : throw std::runtime_error("Out of Range");}
 
     // Getter
     std::size_t getSize() const noexcept override {return static_cast<std::size_t>(list.getCount());}
