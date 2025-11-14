@@ -47,7 +47,7 @@ public:
         other.curr_size_ = 0;
         other.front_ = 0;
         other.back_ =0;
-        delete other.array_;
+        other.array_ = nullptr;
     }
     ABQ<T>& operator=(ABQ&& rhs) noexcept {
         if (this == &rhs) {return *this;}
@@ -129,7 +129,7 @@ public:
         throw std::runtime_error("Out of range.");
     }
     void ShrinkIfNeeded() {
-        if (curr_size_ < capacity_/2) {
+        if (curr_size_ < capacity_/2 && curr_size_ != 0) {
 
             T* copy = new T[capacity_/2];
             std::size_t start = front_;

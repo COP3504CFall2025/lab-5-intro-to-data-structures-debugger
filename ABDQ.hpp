@@ -39,9 +39,8 @@ public:
         if (this == &other) {return *this;}
         delete[] data_;
         T* copy = new T[other.capacity_];
-        for (std::size_t i = 0; i< capacity_; i++) {copy[i] = other.data_[i];}
+        for (std::size_t i = 0; i< other.capacity_; i++) {copy[i] = other.data_[i];}
         data_ = copy;
-        delete[] copy;
         capacity_ = other.capacity_;
         size_ = other.size_;
         front_ = other.front_;
@@ -229,7 +228,7 @@ public:
     size_t getFront() {return front_;}
     size_t getBack() {return back_;}
     void ShrinkIfNeeded() {
-        if (size_ < capacity_/2) {
+        if (size_ < capacity_/2 && size_ != 0) {
 
             T* copy = new T[capacity_/2];
             std::size_t start = front_;

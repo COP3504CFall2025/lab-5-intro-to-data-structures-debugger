@@ -46,7 +46,7 @@ public:
         other.curr_size_ = 0;
         other.front_ = 0;
         other.back_ =0;
-        delete other.array_;
+        other.array_ = nullptr;
     }
     ABS<T>& operator=(ABS&& rhs) noexcept {
         capacity_ = rhs.capacity_;
@@ -131,7 +131,7 @@ public:
     };
 
     void ShrinkIfNeeded() {
-        if (curr_size_ < capacity_/2) {
+        if (curr_size_ < capacity_/2 && curr_size_ != 0) {
 
             T* copy = new T[capacity_/2];
             std::size_t start = front_;
@@ -142,14 +142,14 @@ public:
             front_ = 0;
             back_ = curr_size_-1;
             capacity_ /= 2;
-            delete array_;
+            delete[] array_;
             array_ = copy;
         }
         if (curr_size_ == 0) {
             T* copy = new T[1];
             capacity_ = 1;
             front_ = back_ = 0;
-            delete array_;
+            delete[] array_;
             array_ = copy;
         }
 
