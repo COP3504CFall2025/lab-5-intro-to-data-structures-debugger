@@ -117,8 +117,9 @@ public:
 
     // Deletion
     T dequeue() override {
-        T res = array_[front_];
+
         if (curr_size_ > 0) {
+            T res = array_[front_];
             curr_size_ --;
             front_ = front_ < capacity_-1 ? front_+1 : 0;
 
@@ -143,8 +144,8 @@ public:
             array_ = copy;
         }
         if (curr_size_ == 0) {
-            T* copy = new T[4];
-            capacity_ = 4;
+            T* copy = new T[1];
+            capacity_ = 1;
             front_ = back_ = 0;
             delete[] array_;
             array_ = copy;

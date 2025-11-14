@@ -244,8 +244,8 @@ public:
             data_ = copy;
         }
         if (size_ == 0) {
-            T* copy = new T[4];
-            capacity_ = 4;
+            T* copy = new T[1];
+            capacity_ = 1;
             front_ = back_ = 0;
             delete[] data_;
             data_ = copy;
