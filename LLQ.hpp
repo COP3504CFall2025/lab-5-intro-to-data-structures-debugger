@@ -11,18 +11,29 @@ private:
     LinkedList<T> list;
 public:
     // Constructor
-    LLQ();
+    LLQ(): list() {}
 
     // Insertion
-    void enqueue(const T& item) override;
+    void enqueue(const T& item) override {
+        list.addTail(item);
+    }
 
     // Deletion
-    T dequeue() override;
+    T dequeue() override {
+        if (list.getCount() > 0) {
+        Node<T>* res = list.getHead();
+        list.removeHead();
+        return res->data;
+        }
+        throw std::out_of_range("Out of range");
+    }
 
     // Access
-    T peek() const override;
+    T peek() const override{return list.getCount() > 0 ? list.getHead()->data : throw std::out_of_range("Out of Range");}
 
     // Getter
-    std::size_t getSize() const noexcept override;
+    std::size_t getSize() const noexcept override {return static_cast<std::size_t>(list.getCount());}
+    LinkedList<T> getList() {return list;}
+
 
 };

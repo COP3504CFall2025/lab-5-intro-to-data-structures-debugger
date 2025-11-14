@@ -11,17 +11,29 @@ private:
     LinkedList<T> list;
 public:
     // Constructor
-    LLS();
+    LLS(): list() {}
 
     // Insertion
-    void push(const T& item) override;
+    void push(const T& item) override {
+        list.addHead(item);
+    }
 
     // Deletion
-    T pop() override;
+    T pop() override {
+        if (list.getCount() > 0) {
+            Node<T>* res = list.getHead();
+            list.removeHead();
+            return res->data;
+        }
+        throw std::out_of_range("Out of range.");
+    }
 
     // Access
-    T peek() const override;
+    T peek() const override {
+        return list.getCount() > 0 ? list.getHead()->data: throw std::out_of_range("Out of range");}
+
 
     //Getters
-    std::size_t getSize() const noexcept override;
+    std::size_t getSize() const noexcept override {return list.getCount(); ;}
+    LinkedList<T> getList() {return list;}
 };

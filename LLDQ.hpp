@@ -15,22 +15,41 @@ private:
 
 public:
     // Constructor
-    LLDQ();
+    LLDQ(): list() {}
 
     // Core Insertion Operations
-    void pushFront(const T& item) override;
-    void pushBack(const T& item) override;
+    void pushFront(const T& item) override {
+        list.addHead(item);
+    }
+    void pushBack(const T& item) override {
+        list.addTail(item);
+    }
 
     // Core Removal Operations
-    T popFront() override;
-    T popBack() override;
+    T popFront() override {
+        if (list.getCount() > 0) {
+            Node<T>* res = list.getHead();
+            list.removeHead();
+            return res->data;
+        }
+        throw std::out_of_range("Out of range");
+    }
+    T popBack() override {
+        if (list.getCount() > 0) {
+            Node<T>* res = list.getTail();
+            list.removeTail();
+            return res->data;
+        }
+        throw std::out_of_range("Out of range");
+    }
 
     // Element Accessors
-    const T& front() const override;
-    const T& back() const override;
+    const T& front() const override {return list.getCount()> 0 ? list.getHead()->data: throw std::out_of_range("Out of range");}
+    const T& back() const override {return list.getCount()> 0 ? list.getTail()->data : throw std::out_of_range("Out of range");}
 
     // Getter
-    std::size_t getSize() const noexcept override;
+    std::size_t getSize() const noexcept override {return static_cast<std::size_t>(list.getCount());}
+    LinkedList<T> getList() {return list;}
 };
 
 
