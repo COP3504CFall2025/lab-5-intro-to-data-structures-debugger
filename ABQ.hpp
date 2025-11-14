@@ -6,6 +6,7 @@
 
 // Technically bad, but size_t isn't likely to conflict with any client code.
 using std::size_t;
+using namespace std;
 
 template<typename T>
 class ABQ : public QueueInterface<T>{
@@ -150,30 +151,30 @@ public:
     }
 
         void PrintForward() {
-            std::cout << "[";
+            cout << "[";
             std::size_t start = front_;
             T value = array_[start];
             while (start !=  back_) {
-                std::cout << value << ", ";
+                cout << value << ", ";
                 start  = start < capacity_ -1 ? start+1 : 0;
                 value = array_[start];
             }
-            if (curr_size_ > 0){std::cout << array_[back_] << "]" << std::endl;}
-            else {std::cout << "[]" << std::endl;}
+            if (curr_size_ > 0){cout << array_[back_] << "]" << endl;}
+            else {cout << "[]" << endl;}
 
 
         }
         void PrintReverse() {
-            std::cout << "[";
+            cout << "[";
             std::size_t start = back_;
             T value = array_[start];
             while (start !=  front_) {
-                std::cout << value << ", ";
+                cout << value << ", ";
                 start  = start > 0 ? start-1 : capacity_-1;
                 value = array_[start];
             }
-            if (curr_size_ > 0){std::cout << array_[front_] << "]" << std::endl;}
-            else {std::cout << "[]" << std::endl;}
+            if (curr_size_ > 0){cout << array_[front_] << "]" << endl;}
+            else {cout << "[]" << endl;}
 
 
         }

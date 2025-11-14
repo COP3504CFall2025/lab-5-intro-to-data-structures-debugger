@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include "Interfaces.hpp"
+
 #include <utility>
 
 template <typename T>
@@ -151,8 +152,9 @@ public:
 
     // Deletion
     T popFront() override {
-        T res = data_[front_];
+
         if (size_ > 0) {
+            T res = data_[front_];
             size_ --;
             front_ = front_ < capacity_-1 ? front_+1 : 0;
 
@@ -164,8 +166,9 @@ public:
 
     }
     T popBack() override {
-        T res = data_[back_];
+
         if (size_ > 0 ) {
+            T res = data_[back_];
             size_ --;
             back_ = back_ > 0 ? back_ - 1: capacity_ -1;
 
@@ -179,13 +182,13 @@ public:
 
     // Access
     const T& front() const override {
-        if ( front_ > size_) {
+        if ( size_ == 0) {
             throw std::runtime_error("Out of range.");
         }
         return data_[front_];
     }
     const T& back() const override {
-        if ( back_ > size_) {
+        if ( size_ == 0) {
             throw std::runtime_error("Out of range.");
         }
         return data_[back_];

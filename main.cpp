@@ -112,9 +112,9 @@
     std::cout << "After removals Forward: "; list.printForward(); // 10 20
     std::cout << "Count: " << list.getCount() << "\n"; // 2
 
-    // Clear
-    list.Clear();
-    std::cout << "After Clear, Count: " << list.getCount() << "\n"; // 0
+    // clear
+    list.clear();
+    std::cout << "After clear, Count: " << list.getCount() << "\n"; // 0
     std::cout << "Forward: "; list.printForward(); // nothing
 
     std::cout << "\n=== LLS<int> Stack Tests ===\n";

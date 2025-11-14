@@ -115,7 +115,7 @@ public:
 		count --;
 		return true;
 	}
-	void Clear() {
+	void clear() {
 		if (head != nullptr) {
 			Node<T>* cur = this->tail;
 			for (unsigned int i = count; i > 0; i--) {
@@ -133,7 +133,7 @@ public:
 	// Operators
 	LinkedList<T>& operator=(LinkedList<T>&& other) noexcept{
 		if (this == &other) {return *this;}
-		Clear();
+		clear();
 		this->head = other.head;
 		this->tail= other.tail;
 		this->count = other.count;
@@ -146,7 +146,7 @@ public:
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
 		if (this == &rhs) {return *this;}
-		this->Clear();
+		this->clear();
 		Node<T>* cur = rhs.head;
 		if (cur) {
 			addHead(cur->data);
@@ -183,7 +183,7 @@ public:
 		other.tail = nullptr;
 		other.count = 0;
 	}
-	~LinkedList() {Clear();}
+	~LinkedList() {clear();}
 
 
 };
