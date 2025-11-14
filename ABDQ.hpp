@@ -41,6 +41,7 @@ public:
         T* copy = new T[other.capacity_];
         for (std::size_t i = 0; i< capacity_; i++) {copy[i] = other.data_[i];}
         data_ = copy;
+        delete[] copy;
         capacity_ = other.capacity_;
         size_ = other.size_;
         front_ = other.front_;

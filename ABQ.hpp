@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include "Interfaces.hpp"
+#include <iostream>
 
 // Technically bad, but size_t isn't likely to conflict with any client code.
 using std::size_t;
@@ -41,7 +42,7 @@ public:
         array_ = copy;
         return *this;
     }
-    ABQ(ABQ&& other) noexcept: capacity_(other.capacity), curr_size_(other.curr_size_), front_(other.front_), back_(other.back_), array_(other.array_) {
+    ABQ(ABQ&& other) noexcept: capacity_(other.capacity_), curr_size_(other.curr_size_), front_(other.front_), back_(other.back_), array_(other.array_) {
         other.capacity_ = 0;
         other.curr_size_ = 0;
         other.front_ = 0;
