@@ -86,11 +86,14 @@ public:
 		if (head == nullptr) {return false;}
 		if (head->next == nullptr) {
 			delete head;
+			head = nullptr;
+			tail = nullptr;
+			count = 0;
 			return true;
 		}
 		Node<T>* temp = head;
 		head = head->next;
-		temp = nullptr;
+		delete temp;
 		head->prev = nullptr;
 		count --;
 
@@ -100,11 +103,14 @@ public:
 		if (tail == nullptr) {return false;}
 		if (tail-> prev == nullptr) {
 			delete tail;
+			head = nullptr;
+			tail = nullptr;
+			count = 0;
 			return true;
 		}
 		Node<T>* temp = tail;
 		tail = tail -> prev;
-		temp = nullptr;
+		delete temp;
 		tail-> next = nullptr;
 		count --;
 		return true;
@@ -127,8 +133,7 @@ public:
 	// Operators
 	LinkedList<T>& operator=(LinkedList<T>&& other) noexcept{
 		if (this == &other) {return *this;}
-		delete this->head;
-		delete this->tail;
+		Clear();
 		this->head = other.head;
 		this->tail= other.tail;
 		this->count = other.count;

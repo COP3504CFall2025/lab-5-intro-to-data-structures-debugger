@@ -32,7 +32,7 @@ public:
         curr_size_ = rhs.curr_size_;
         front_ = rhs.front_;
         back_ = rhs.back_;
-        delete array_;
+        delete[] array_;
         T* copy = new T[rhs.capacity_];
         for (int i = 0;  i<rhs.capacity_; i++) {
             copy[i] = rhs.array_[i];
@@ -68,7 +68,7 @@ public:
         curr_size_ = 0;
         front_ = 0;
         back_ = 0;
-        delete array_;
+        delete[] array_;
     }
 
     // Getters
@@ -91,7 +91,7 @@ public:
             }
             back_ = curr_size_-1;
             front_ = 0;
-            delete array_;
+            delete[] array_;
             array_ = copy;
 
 
@@ -137,14 +137,14 @@ public:
             front_ = 0;
             back_ = curr_size_-1;
             capacity_ /= 2;
-            delete array_;
+            delete[] array_;
             array_ = copy;
         }
         if (curr_size_ == 0) {
             T* copy = new T[4];
             capacity_ = 4;
             front_ = back_ = 0;
-            delete array_;
+            delete[] array_;
             array_ = copy;
         }
     }
