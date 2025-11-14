@@ -94,20 +94,20 @@ public:
                 copy[i] = array_[start];
                 start = start < curr_size_-2 ? start +1 :0;
             }
-            back_ = curr_size_-2;
-            front_ = capacity_ -1;
+            back_ = curr_size_-1;
+            front_ = 0;
             delete[] array_;
             array_ = copy;
 
 
         }
         else if (curr_size_ == 1) {
-            front_ = 0;
+            back_ = 0;
         }
         else {
-            front_ = front_ > 0 ? front_-1: capacity_-1;
+            back_ = back_ < capacity_-1 ? back_+1: 0;
         }
-        array_[front_]= data;
+        array_[back_]= data;
 
     }
 

@@ -254,6 +254,14 @@
         std::cout << dq.popFront() << "  expected=3\n";
     }
 
+     ABS<int> d;
+     d.push(2);
+     d.push(3);
+     d.push(4);
+     std::cout << d.peek() << std::endl;
+     std::cout << d.pop() << std::endl;
+     std::cout << d.pop() << std::endl;
+
 
     return 0;
 
