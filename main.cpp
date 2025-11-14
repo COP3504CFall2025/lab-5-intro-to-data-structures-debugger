@@ -2,6 +2,7 @@
 
 #include "ABDQ.hpp"
 #include "ABQ.hpp"
+#include <vector>
 #include "ABS.hpp"
 #include "Interfaces.hpp"
 #include "LinkedList.hpp"
@@ -210,6 +211,162 @@
     std::cout << "Size after emptying deque: " << deque.getSize() << "\n";
 
     std::cout << "\nAll linked-list tests completed successfully.\n";
+
+     ABDQ<int> dq;
+
+     // Step 1: fill until resize happens
+     dq.pushBack(1);
+     dq.pushBack(2);
+     dq.pushBack(3);
+     dq.pushBack(4);  // fills capacity=4
+     dq.pushBack(5);  // triggers resize to 8
+
+     // Step 2: pop twice (front moves)
+     dq.popFront();  // removes 1
+     dq.popFront();  // removes 2
+
+     // Now front_ = 2, back_ = 4, size_=3, capacity_=8
+     // Circular region = [2,3,4]
+
+     // Step 3: force wrap-around
+     dq.pushBack(6);
+     dq.pushBack(7);
+     dq.pushBack(8);  // back_ wraps to 1
+     dq.pushBack(9);  // back_ now at 2
+
+     // Step 4: Shrink to 4 (size=6, capacity=8 → shrinks)
+     dq.popFront();  // pop 3 → triggers shrink to 4
+
+     // Step 5: Now push again to force another resize
+     dq.pushBack(10);  // SHOULD trigger resize again
+
+     dq.PrintForward();
+
+     std::cout << "\n--- BASIC TEST ---\n";
+    {
+        ABDQ<int> dq;
+
+        dq.pushBack(1);
+        dq.pushBack(2);
+        dq.pushBack(3);
+
+        std::cout << dq.popFront() << "  expected=1\n";
+        std::cout << dq.popFront() << "  expected=2\n";
+        std::cout << dq.popFront() << "  expected=3\n";
+    }
+
+    std::cout << "\n--- MIXED PUSH/POP ---\n";
+    {
+        ABDQ<int> dq;
+
+        dq.pushFront(10);   // [10]
+        dq.pushBack(20);    // [10,20]
+        dq.pushFront(5);    // [5,10,20]
+        dq.pushBack(30);    // [5,10,20,30]
+
+        std::cout << dq.popFront() << "  expected=5\n";
+        std::cout << dq.popBack()  << "  expected=30\n";
+        std::cout << dq.popFront() << "  expected=10\n";
+        std::cout << dq.popBack()  << "  expected=20\n";
+    }
+
+    std::cout << "\n--- WRAPAROUND TEST ---\n";
+    {
+        ABDQ<int> dq;
+        for (int i = 0; i < 8; i++) dq.pushBack(i);
+
+        dq.popFront(); // 0
+        dq.popFront(); // 1
+        dq.popFront(); // 2
+
+        dq.pushFront(99);
+        dq.pushFront(88);
+
+        std::cout << dq.popFront() << "  expected=88\n";
+        std::cout << dq.popFront() << "  expected=99\n";
+        std::cout << dq.popFront() << "  expected=3\n";
+    }
+
+    std::cout << "\n--- EXCEPTION TESTS ---\n";
+    {
+        ABDQ<int> dq;
+
+        try {
+            dq.popFront();
+            std::cout << "NO EXCEPTION  expected=throw\n";
+        } catch (std::runtime_error&) {
+            std::cout << "threw runtime_error  expected=throw\n";
+        }
+
+        try {
+            dq.popBack();
+            std::cout << "NO EXCEPTION  expected=throw\n";
+        } catch (std::runtime_error&) {
+            std::cout << "threw runtime_error  expected=throw\n";
+        }
+    }
+
+    std::cout << "\n--- RANDOMIZED TEST (SMALL) ---\n";
+    {
+        ABDQ<int> dq;
+        std::vector<int> model;
+
+        for (int i = 0; i < 2000; i++) {
+            int op = rand() % 4;
+
+            if (op == 0) {
+                int v = rand() % 1000;
+                dq.pushFront(v);
+                model.insert(model.begin(), v);
+            }
+            else if (op == 1) {
+                int v = rand() % 1000;
+                dq.pushBack(v);
+                model.push_back(v);
+            }
+            else if (op == 2) {
+                if (!model.empty()) {
+                    int expected = model.front();
+                    model.erase(model.begin());
+                    int got = dq.popFront();
+                    if (got != expected) {
+                        std::cout << "popFront mismatch got=" << got
+                                  << " expected=" << expected << "\n";
+                        return 0;
+                    }
+                } else {
+                    try {
+                        dq.popFront();
+                        std::cout << "popFront NO EXCEPTION expected=throw\n";
+                        return 0;
+                    } catch (...) {}
+                }
+            }
+            else {
+                if (!model.empty()) {
+                    int expected = model.back();
+                    model.pop_back();
+                    int got = dq.popBack();
+                    if (got != expected) {
+                        std::cout << "popBack mismatch got=" << got
+                                  << " expected=" << expected << "\n";
+                        return 0;
+                    }
+                } else {
+                    try {
+                        dq.popBack();
+                        std::cout << "popBack NO EXCEPTION expected=throw\n";
+                        return 0;
+                    } catch (...) {}
+                }
+            }
+        }
+
+        std::cout << "random test passed expected=pass\n";
+    }
+
+    std::cout << "\nALL DONE.\n";
+    return 0;
 
     return 0;
 

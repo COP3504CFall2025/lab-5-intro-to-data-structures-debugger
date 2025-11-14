@@ -51,17 +51,17 @@ public:
     }
     ABQ<T>& operator=(ABQ&& rhs) noexcept {
         if (this == &rhs) {return *this;}
+        delete[] array_;
         capacity_ = rhs.capacity_;
         curr_size_ = rhs.curr_size_;
         front_ = rhs.front_;
         back_ = rhs.back_;
         array_ = rhs.array_;
-        delete rhs.array_;
+        rhs.array_ = nullptr;
         rhs.capacity_  = 0;
         rhs.curr_size_  = 0;
         rhs.front_ = 0;
         rhs.back_  = 0;
-        rhs.array_ = 0;
         return *this;
     }
 
@@ -71,6 +71,7 @@ public:
         front_ = 0;
         back_ = 0;
         delete[] array_;
+        array_ = nullptr;
     }
 
     // Getters
@@ -146,7 +147,8 @@ public:
         if (curr_size_ == 0) {
             T* copy = new T[1];
             capacity_ = 1;
-            front_ = back_ = 0;
+            front_ = 0;
+            back_ = 0;
             delete[] array_;
             array_ = copy;
         }

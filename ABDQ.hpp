@@ -49,6 +49,7 @@ public:
     }
     ABDQ<T>& operator=(ABDQ&& other) noexcept {
         if (this == &other) {return *this;}
+        delete[] data_;
         data_ = other.data_;
         capacity_ = other.capacity_;
         front_ = other.front_;
@@ -63,6 +64,7 @@ public:
     }
     ~ABDQ() override {
         delete[] data_;
+        data_ = nullptr;
         capacity_ = 0;
         size_ = 0;
         front_ = 0;
@@ -245,7 +247,8 @@ public:
         if (size_ == 0) {
             T* copy = new T[1];
             capacity_ = 1;
-            front_ = back_ = 0;
+            front_ = 0;
+            back_ = 0;
             delete[] data_;
             data_ = copy;
         }
