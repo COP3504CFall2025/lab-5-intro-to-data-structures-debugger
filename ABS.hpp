@@ -96,7 +96,7 @@ public:
             }
             back_ = curr_size_-2;
             front_ = capacity_ -1;
-            delete array_;
+            delete[] array_;
             array_ = copy;
 
 
